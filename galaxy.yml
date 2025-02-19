@@ -4,11 +4,14 @@ authors:
 dependencies:
   "amazon.aws": ">=8.0.0"
 license_file: LICENSE
-name: bgp
+name: labcommon
 description: Common lab needs for different environments
 namespace: zjpeterson
 readme: README.md
 repository: https://github.com/zjpeterson/ansible-labcommon
 issues: https://github.com/zjpeterson/ansible-labcommon/issues
-tags: [lab]
+tags:
+  - lab
+  - cloud
+  - aws
 version: 0.0.0
