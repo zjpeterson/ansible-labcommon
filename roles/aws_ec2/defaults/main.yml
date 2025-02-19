@@ -1,0 +1,18 @@
+---
+aws_ec2_region: us-east-2
+aws_ec2_dns_zone: sandbox0000.opentlc.com
+aws_ec2_ami: ami-0d77c9d87c7e619f9 # RHEL 9.3 in us-east-2
+aws_ec2_sg_name: ansible
+aws_ec2_sg_rules:
+  - proto: tcp
+    ports: 22
+    cidr_ip: 0.0.0.0/0
+  - proto: tcp
+    ports: 443
+    cidr_ip: 0.0.0.0/0
+aws_ec2_name: my-instance
+aws_ec2_type: t3.small
+aws_ec2_disk: 50
+aws_ec2_vpc: vpc-0000000
+aws_ec2_subnet: subnet-00000000
+aws_ec2_key_name: ansible

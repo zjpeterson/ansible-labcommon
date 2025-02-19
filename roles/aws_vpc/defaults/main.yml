@@ -1,0 +1,5 @@
+---
+aws_vpc_region: us-east-2
+aws_vpc_name: vpc-ansible
+aws_vpc_block: 10.0.0.0/16
+aws_vpc_subnet_block: 10.0.0.0/20

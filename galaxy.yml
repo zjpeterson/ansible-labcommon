@@ -1,0 +1,14 @@
+---
+authors:
+  - Zach Peterson (zjpeterson)
+dependencies:
+  "amazon.aws": ">=8.0.0"
+license_file: LICENSE
+name: bgp
+description: Common lab needs for different environments
+namespace: zjpeterson
+readme: README.md
+repository: https://github.com/zjpeterson/ansible-labcommon
+issues: https://github.com/zjpeterson/ansible-labcommon/issues
+tags: [lab]
+version: 0.0.0
