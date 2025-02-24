@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  role_name: aws_ec2
+  author: Zach Peterson (zjpeterson)
+  description: Creates a single EC2 instance
+  license: GPLv3
+  min_ansible_version: "2.12"

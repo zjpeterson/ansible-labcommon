@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  role_name: aws_vpc
+  author: Zach Peterson (zjpeterson)
+  description: Creates a simple VPC with an Internet Gateway and a single subnet
+  license: GPLv3
+  min_ansible_version: "2.12"
