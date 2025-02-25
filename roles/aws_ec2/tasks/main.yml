@@ -25,7 +25,7 @@
     region: "{{ aws_ec2_region }}"
   register: _sg
 
-- name: Provision EC2 instances
+- name: Provision EC2 instances (basic networking)
   amazon.aws.ec2_instance:
     name: "{{ aws_ec2_name }}"
     instance_type: "{{ aws_ec2_type }}"
@@ -42,7 +42,28 @@
     network:
       assign_public_ip: true
       delete_on_termination: true
+    user_data: "{{ aws_ec2_user_data | default(omit) }}"
   register: _instance
+  when: not aws_ec2_net_advanced
+
+- name: Provision EC2 instances (advanced networking)
+  amazon.aws.ec2_instance:
+    name: "{{ aws_ec2_name }}"
+    instance_type: "{{ aws_ec2_type }}"
+    image_id: "{{ aws_ec2_ami }}"
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: "{{ aws_ec2_disk }}"
+          delete_on_termination: true
+    vpc_subnet_id: "{{ aws_ec2_subnet }}"
+    security_group: "{{ _sg.group_id }}"
+    key_name: ansible
+    region: "{{ aws_ec2_region }}"
+    user_data: "{{ aws_ec2_user_data | default(omit) }}"
+    network_interfaces: "{{ aws_ec2_net_interfaces }}"
+  register: _instance
+  when: aws_ec2_net_advanced
 
 - name: Get public IP
   amazon.aws.ec2_instance_info:
@@ -52,6 +73,7 @@
   delay: 5
   retries: 10
   register: _ec2_info
+  when: not aws_ec2_net_advanced
 
 - name: Create instance DNS
   amazon.aws.route53:
@@ -62,8 +84,11 @@
     value: "{{ _ec2_info.instances.0.public_ip_address }}"
     overwrite: true
     wait: true
-  when: aws_ec2_dns_zone != 'sandbox0000.opentlc.com'
+  when:
+    - aws_ec2_dns_zone != 'sandbox0000.opentlc.com'
+    - not aws_ec2_net_advanced
 
 - name: Display new record
   ansible.builtin.debug:
     msg: "Access instance at: {{ aws_ec2_name }}.{{ aws_ec2_dns_zone }}"
+  when: not aws_ec2_net_advanced

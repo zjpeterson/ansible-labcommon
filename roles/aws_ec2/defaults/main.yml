@@ -16,3 +16,9 @@ aws_ec2_disk: 50
 aws_ec2_vpc: vpc-0000000
 aws_ec2_subnet: subnet-00000000
 aws_ec2_key_name: ansible
+aws_ec2_net_advanced: false
+aws_ec2_net_interfaces: # only used when aws_ec2_net_advanced=true
+  - device_index: 0
+    description: first interface
+  - device_index: 1
+    description: second interface

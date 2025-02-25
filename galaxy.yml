@@ -2,7 +2,7 @@
 authors:
   - Zach Peterson (zjpeterson)
 dependencies:
-  "amazon.aws": ">=8.0.0"
+  "amazon.aws": ">=8.2.0"
 license_file: LICENSE
 name: labcommon
 description: Common lab needs for different environments
@@ -14,4 +14,4 @@ tags:
   - lab
   - cloud
   - aws
-version: 0.0.0
+version: 0.1.0
