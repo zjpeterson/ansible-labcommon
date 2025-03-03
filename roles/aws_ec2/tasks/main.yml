@@ -62,7 +62,6 @@
     region: "{{ aws_ec2_region }}"
     user_data: "{{ aws_ec2_user_data | default(omit) }}"
     network_interfaces: "{{ aws_ec2_net_interfaces }}"
-  register: _instance
   when: aws_ec2_net_advanced
 
 - name: Get public IP
@@ -83,7 +82,7 @@
     type: A
     value: "{{ _ec2_info.instances.0.public_ip_address }}"
     overwrite: true
-    wait: true
+    wait: "{{ aws_ec2_dns_wait }}"
   when:
     - aws_ec2_dns_zone != 'sandbox0000.opentlc.com'
     - not aws_ec2_net_advanced

@@ -22,3 +22,4 @@ aws_ec2_net_interfaces: # only used when aws_ec2_net_advanced=true
     description: first interface
   - device_index: 1
     description: second interface
+aws_ec2_dns_wait: false
