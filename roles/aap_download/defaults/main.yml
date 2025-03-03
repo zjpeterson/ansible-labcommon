@@ -1,0 +1,4 @@
+---
+aap_download_token: "{{ undef(hint='You must provide a Red Hat Management API key from https://access.redhat.com/management/api') }}"
+aap_download_hash: d991c29aa0c018594343a0b1acea30485fb520e5a562c8e10871695e840d20de # 2.5 rpm bundle 2024-10-29
+aap_download_dir: /home/{{ ansible_user }}

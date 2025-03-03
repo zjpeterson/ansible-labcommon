@@ -1,0 +1,48 @@
+[automationgateway]
+{{ aap_install_aio_host }}
+
+[automationcontroller]
+{{ aap_install_aio_host }}
+
+{% if 'hub' not in aap_install_omit_components %}
+[automationhub]
+{{ aap_install_aio_host }}
+{% endif %}
+
+{% if 'eda' not in aap_install_omit_components %}
+[automationeda]
+{{ aap_install_aio_host }}
+{% endif %}
+
+[database]
+{{ aap_install_aio_host }}
+
+[all:vars]
+ansible_connection=local
+redis_mode=standalone
+bundle_install=true
+bundle_dir={{ aap_install_dir }}/bundle
+
+postgresql_admin_username=postgres
+postgresql_admin_password="{{ aap_install_admin_password }}"
+
+gateway_admin_password="{{ aap_install_admin_password }}"
+gateway_pg_host={{ aap_install_aio_host }}
+gateway_pg_password="{{ aap_install_admin_password }}"
+
+controller_admin_password="{{ aap_install_admin_password }}"
+controller_pg_host={{ aap_install_aio_host }}
+controller_pg_password="{{ aap_install_admin_password }}"
+
+{% if 'hub' not in aap_install_omit_components %}
+hub_admin_password="{{ aap_install_admin_password }}"
+hub_pg_host={{ aap_install_aio_host }}
+hub_pg_password="{{ aap_install_admin_password }}"
+hub_seed_collections=false
+{% endif %}
+
+{% if 'eda' not in aap_install_omit_components %}
+eda_admin_password="{{ aap_install_admin_password }}"
+eda_pg_host={{ aap_install_aio_host }}
+eda_pg_password="{{ aap_install_admin_password }}"
+{% endif %}

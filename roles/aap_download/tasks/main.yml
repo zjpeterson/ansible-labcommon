@@ -1,0 +1,34 @@
+---
+- name: Login to Red Hat API
+  ansible.builtin.uri:
+    url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+    method: POST
+    return_content: true
+    body_format: form-urlencoded
+    body:
+      grant_type: refresh_token
+      client_id: rhsm-api
+      refresh_token: "{{ aap_download_token }}"
+  register: _rhlogin
+  run_once: true
+
+- name: Download installer tarball
+  ansible.builtin.get_url:
+    url: https://api.access.redhat.com/management/v1/images/{{ aap_download_hash }}/download
+    headers:
+      Authorization: Bearer {{ _rhlogin.json.access_token }}
+    dest: "{{ aap_download_dir }}/installer.tar.gz"
+    mode: '755'
+  throttle: 1
+
+- name: Extract installer
+  ansible.builtin.unarchive:
+    src: "{{ aap_download_dir }}/installer.tar.gz"
+    dest: "{{ aap_download_dir }}/"
+    remote_src: true
+    list_files: true
+  register: _archive
+
+- name: Save name of extracted folder
+  ansible.builtin.set_fact:
+    aap_install_dir: "{{ aap_download_dir }}/{{ _archive.files.0 }}"

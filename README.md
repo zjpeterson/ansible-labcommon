@@ -15,3 +15,15 @@ Creates an SSH key if the `aws_ec2_key_name` provided doesn't exist.
 Creates a Route 53 record for the instance based on its name if `aws_ec2_dns_zone` is provided.
 
 Creates a Security Group which will have SSH/HTTPS 0.0.0.0/0 open unless modified.
+
+## AAP roles
+
+### aap_download
+
+Downloads an AAP setup tarball from the Red Hat CDN.
+
+### aap_install
+
+Installs AAP as part of an automated process, for use with workshops, etc.
+
+Currently only supports a containerized all-in-one install.

@@ -1,0 +1,18 @@
+---
+- name: Template inventory by mode
+  ansible.builtin.template:
+    src: "{{ aap_install_mode }}-{{ aap_install_topology }}.j2"
+    dest: "{{ aap_install_dir }}/inventory-automated"
+    mode: "755"
+
+- name: Install ansible-core
+  ansible.builtin.dnf:
+    name: ansible-core
+  become: true
+
+- name: Run installer (containerized)
+  ansible.builtin.command:
+    cmd: "ansible-playbook -i inventory-automated ansible.containerized_installer.install"
+  args:
+    chdir: "{{ aap_install_dir }}"
+  when: aap_install_mode == 'containerized'
