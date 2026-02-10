@@ -1,0 +1,39 @@
+---
+- name: Determine admin password
+  ansible.builtin.set_fact:
+    _admin_password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=azure_vm_name, chars=['ascii_lowercase', 'digits', '-=[];,./']) }}"
+
+- name: Create VM in Azure
+  azure.azcollection.azure_rm_virtualmachine:
+    resource_group: "{{ azure_vm_rg }}"
+    name: "{{ azure_vm_name }}"
+    vm_size: "{{ azure_vm_size }}"
+    image: "{{ azure_vm_image }}"
+    location: "{{ azure_vm_region }}"
+    open_ports: "{{ azure_vm_ports }}"
+    os_disk_delete_option: Delete
+    os_disk_size_gb: "{{ azure_vm_disk }}"
+    os_type: linux
+    public_ip_allocation_method: Static
+    admin_username: "{{ azure_vm_admin_user }}"
+    admin_password: "{{ _admin_password }}"
+    managed_disk_type: Premium_LRS
+
+- name: Get public IP
+  azure.azcollection.azure_rm_publicipaddress_info:
+    resource_group: "{{ azure_vm_rg }}"
+    name: "{{ azure_vm_name }}01"
+  register: _ip_info
+
+- name: Add dynamic host for further automation
+  ansible.builtin.add_host:
+    name: "{{ azure_vm_name }}"
+    ansible_host: "{{ _ip_info.publicipaddresses.0.ip_address }}"
+    ansible_user: "{{ azure_vm_admin_user }}"
+    ansible_password: "{{ _admin_password }}"
+
+- name: Display admin password
+  vars:
+    _ip_address: "{{ _ip_info.publicipaddresses.0.ip_address }}"
+  ansible.builtin.debug:
+    msg: Access the VM at IP {{ _ip_address }} with username {{ azure_vm_admin_user }} and password {{ _admin_password }}

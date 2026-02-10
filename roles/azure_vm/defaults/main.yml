@@ -1,0 +1,15 @@
+---
+azure_vm_rg: myrg
+azure_vm_name: myvm
+azure_vm_size: Standard_D4as_v5
+azure_vm_disk: 64
+azure_vm_ports:
+  - 22
+  - 443
+azure_vm_image:
+  publisher: RedHat
+  offer: RHEL
+  sku: 10-lvm-gen2
+  version: latest
+azure_vm_region: centralus
+azure_vm_admin_user: azureuser
