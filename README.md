@@ -16,6 +16,10 @@ Creates a Route 53 record for the instance based on its name if `aws_ec2_dns_zon
 
 Creates a Security Group which will have SSH/HTTPS 0.0.0.0/0 open unless modified.
 
+## Azure Roles
+### azure_vm
+Creates a VM in Azure. Assumes that a Resource Group for the VM already exists.
+
 ## AAP roles
 
 ### aap_download
