@@ -1,0 +1,13 @@
+---
+- name: Move change to review state
+  servicenow.itsm.change_request:
+    state: review
+    assignment_group: "{{ snow_change_assignment_group }}"
+    number: "{{ snow_change_number }}"
+
+- name: Close change request
+  servicenow.itsm.change_request:
+    state: "{{ snow_change_close_state }}"
+    close_code: "{{ snow_change_close_code }}"
+    close_notes: "{{ snow_change_close_notes }}"
+    number: "{{ snow_change_number }}"

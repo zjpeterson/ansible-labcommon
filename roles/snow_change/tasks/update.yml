@@ -1,0 +1,12 @@
+---
+- name: Update change request
+  vars:
+    _start_time: "{{ ansible_date_time.date }} {{ ansible_date_time.time }}"
+  servicenow.itsm.change_request:
+    state: "{{ snow_change_new_state }}"
+    number: "{{ snow_change_number }}"
+    assignment_group: "{{ snow_change_assignment_group }}"
+    other:
+      work_notes: "{{ snow_change_work_notes }}"
+      start_date: "{% if snow_change_new_state == 'scheduled' %}{{ _start_time }}{% else %}omit{% endif %}"
+      work_start: "{% if snow_change_new_state == 'implement' %}{{ _start_time }}{% else %}omit{% endif %}"

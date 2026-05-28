@@ -1,0 +1,23 @@
+---
+- name: Ensure configuration item
+  servicenow.itsm.configuration_item:
+    name: "{{ snow_change_ci_name }}"
+    sys_class_name: "{{ snow_change_ci_sys_class }}"
+  when: snow_change_create_ci
+
+- name: Create change request
+  servicenow.itsm.change_request:
+    type: standard
+    state: new
+    short_description: "{{ snow_change_short_description }}"
+    description: "{{ snow_change_description }}"
+    priority: "{{ snow_change_priority }}"
+    risk: "{{ snow_change_risk }}"
+    impact: "{{ snow_change_impact }}"
+    other:
+      cmdb_ci: "{{ snow_change_ci_name }}"
+  register: _new_change
+
+- name: Save change number
+  ansible.builtin.set_fact:
+    snow_change_number: "{{ _new_change.record.number }}"

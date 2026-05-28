@@ -1,0 +1,17 @@
+---
+snow_change_number: CHG0030353
+snow_change_operation: create
+snow_change_assignment_group: System Admins
+snow_change_create_ci: true
+snow_change_ci_name: system
+snow_change_ci_sys_class: cmdb_ci
+snow_change_short_description: Ansible Change
+snow_change_description: Change via Ansible
+snow_change_priority: low
+snow_change_risk: low
+snow_change_impact: low
+snow_change_work_notes: Change updated by Ansible
+snow_change_new_state: scheduled
+snow_change_close_state: closed
+snow_change_close_code: successful
+snow_change_close_notes: Closed by Ansible
