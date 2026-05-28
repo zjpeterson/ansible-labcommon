@@ -3,6 +3,7 @@ authors:
   - Zach Peterson (zjpeterson)
 dependencies:
   "amazon.aws": ">=8.2.0"
+  "servicenow.itsm": ">=2.14.0"
 license_file: LICENSE
 name: labcommon
 description: Common lab needs for different environments
@@ -15,4 +16,12 @@ tags:
   - cloud
   - aws
   - azure
-version: 0.3.0
+  - servicenow
+version: 0.4.0
+build_ignore:
+  - ".ansible"
+  - "*.log"
+  - "test*"
+  - "*.tar.gz"
+  - ".git"
+  - ".vscode"
